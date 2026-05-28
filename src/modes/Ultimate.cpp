@@ -1,5 +1,6 @@
 /* Ultimate profile by Taker */
 #include "modes/Ultimate.hpp"
+
 #include <config.pb.h>
 
 #define ANALOG_STICK_MIN 28
@@ -13,7 +14,7 @@ void Ultimate::UpdateDigitalOutputs(const InputState &inputs, OutputState &outpu
     outputs.b = inputs.rf1;
     outputs.x = inputs.rf2;
     outputs.y = inputs.rf6;
-    //outputs.buttonL = inputs.rf7;
+    // outputs.buttonL = inputs.rf7;
     outputs.buttonR = inputs.rf3;
     outputs.triggerLDigital = inputs.lf4;
     outputs.triggerRDigital = inputs.rf5;
@@ -58,7 +59,11 @@ void Ultimate::UpdateDigitalOutputs(const InputState &inputs, OutputState &outpu
     outputs.modY = inputs.lt2;
 }
 
-void Ultimate::UpdateAnalogOutputs(const InputState &inputs, OutputState &outputs, CommunicationBackendId backend_id) {
+void Ultimate::UpdateAnalogOutputs(
+    const InputState &inputs,
+    OutputState &outputs,
+    CommunicationBackendId backend_id
+) {
     // Coordinate calculations to make modifier handling simpler.
     UpdateDirections(
         inputs.lf3, // Left
@@ -74,6 +79,22 @@ void Ultimate::UpdateAnalogOutputs(const InputState &inputs, OutputState &output
         ANALOG_STICK_MAX,
         outputs
     );
+
+    if (inputs.lt2) {
+        if (inputs.rt4) { // C-Up -> up-left
+            outputs.rightStickX = 128 - 42;
+            outputs.rightStickY = 128 + 68;
+        } else if (inputs.rt5) { // C-Right -> up-right
+            outputs.rightStickX = 128 + 42;
+            outputs.rightStickY = 128 + 68;
+        } else if (inputs.rt3) { // C-Left -> down-left
+            outputs.rightStickX = 128 - 42;
+            outputs.rightStickY = 128 - 68;
+        } else if (inputs.rt2) { // C-Down -> down-right
+            outputs.rightStickX = 128 + 42;
+            outputs.rightStickY = 128 - 68;
+        }
+    }
 
     bool shield_button_pressed = inputs.lf4 || inputs.rf5;
 
@@ -277,7 +298,6 @@ void Ultimate::UpdateAnalogOutputs(const InputState &inputs, OutputState &output
         outputs.triggerLAnalog = 140;
     } else {
         outputs.triggerLAnalog = 0;
-
     }
 
     if (inputs.rf5) {
