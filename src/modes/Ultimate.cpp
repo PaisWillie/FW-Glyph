@@ -82,17 +82,17 @@ void Ultimate::UpdateAnalogOutputs(
 
     if (inputs.lt2) {
         if (inputs.rt4) { // C-Up -> up-left
-            outputs.rightStickX = 128 - 42;
-            outputs.rightStickY = 128 + 68;
+            outputs.rightStickX = 128 - 40;
+            outputs.rightStickY = 128 + 53;
         } else if (inputs.rt5) { // C-Right -> up-right
-            outputs.rightStickX = 128 + 42;
-            outputs.rightStickY = 128 + 68;
+            outputs.rightStickX = 128 + 40;
+            outputs.rightStickY = 128 + 53;
         } else if (inputs.rt3) { // C-Left -> down-left
-            outputs.rightStickX = 128 - 42;
-            outputs.rightStickY = 128 - 68;
+            outputs.rightStickX = 128 - 40;
+            outputs.rightStickY = 128 - 53;
         } else if (inputs.rt2) { // C-Down -> down-right
-            outputs.rightStickX = 128 + 42;
-            outputs.rightStickY = 128 - 68;
+            outputs.rightStickX = 128 + 40;
+            outputs.rightStickY = 128 - 53;
         }
     }
 
